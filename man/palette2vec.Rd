@@ -18,5 +18,7 @@ a \link[tibble:tibble-package]{tibble}
 Title
 }
 \examples{
-palette2vec(list(terrain.colors(10), heat.colors(16), topo.colors(8)))
+palette2vec(list(terrain = terrain.colors(10),
+                 heat = heat.colors(16),
+                 topo = topo.colors(8)))
 }

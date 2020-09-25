@@ -18,4 +18,16 @@ Imports:
     dplyr,
     purrr,
     scales,
-    farver
+    farver,
+    magrittr
+Depends: 
+    R (>= 2.10)
+Suggests: 
+    shiny,
+    plotly,
+    gt,
+    recipes,
+    embed,
+    crosstalk,
+    ggplot2,
+    glue
