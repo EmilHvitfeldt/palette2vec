@@ -25,9 +25,8 @@ palette2vec <- function(pals, hue_contains_n = 10) {
     iqr_dist = map_dbl(pals, iqr_distance, "RGB")
     )
 
-  hue_colors <- scales::hue_pal()(hue_contains_n)
-  hue_contains_min <- colors_contains_min(pals, hue_colors, "RGB")
-  hue_contains_all <- colors_contains_all(pals, hue_colors, "RGB")
+  hue_contains_min <- colors_contains_min(pals, main_colors, "hsl")
+  hue_contains_all <- colors_contains_all(pals, main_colors, "hsl")
 
   bind_cols(
     res,
@@ -35,3 +34,14 @@ palette2vec <- function(pals, hue_contains_n = 10) {
     hue_contains_all
   )
 }
+
+
+main_colors <- cbind(
+  h = c(0, 30, 60, 120, 180, 240, 270, 300),
+  s = 100,
+  l = 50
+) %>%
+  farver::encode_colour(from = "hsl")
+names(main_colors) <- c("red", "orange", "yellow", "green",
+                        "turqouise", "blue", "purple", "pink")
+
