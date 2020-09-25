@@ -32,4 +32,5 @@ Suggests:
     crosstalk,
     ggplot2,
     glue,
-    waiter
+    waiter,
+    paletteer

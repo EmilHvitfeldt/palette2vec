@@ -2,6 +2,7 @@
 
 export("%>%")
 export(palette2vec)
+export(paletteer_palettes)
 export(pals_to_gt)
 export(umap_embedding)
 importFrom(dplyr,bind_cols)

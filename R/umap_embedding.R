@@ -77,8 +77,6 @@ umap_embedding <- function(palettes) {
         plotly::highlight(on = "plotly_selected", off = "plotly_doubleclick")
     })
 
-    waiter::waiter_hide()
-
     output$table <- gt::render_gt({
       if (length(selected_names()) > 0)
         pals_to_gt(palettes[selected_names()])
@@ -89,6 +87,7 @@ umap_embedding <- function(palettes) {
         shiny::stopApp(palettes[selected_names()])
       }
     })
+    waiter::waiter_hide()
   }
 
   # Run the application
