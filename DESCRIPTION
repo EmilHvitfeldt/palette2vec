@@ -19,7 +19,8 @@ Imports:
     purrr,
     scales,
     farver,
-    magrittr
+    magrittr,
+    tidyselect
 Depends: 
     R (>= 2.10)
 Suggests: 

@@ -6,5 +6,5 @@
 NULL
 
 utils::globalVariables(
-  c(".", "name", "umap_1", "umap_2", "selected_")
+  c(".", "name", "umap_1", "umap_2", "selected_", "n_cols")
 )

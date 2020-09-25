@@ -1,7 +1,10 @@
-vec2umap <- function(x) {
+vec2umap <- function(x, contains_min_w, length_w) {
     recipes::recipe(name ~ ., data = x) %>%
-    recipes::step_zv(recipes::all_predictors()) %>%
     recipes::step_normalize(recipes::all_predictors()) %>%
+    recipes::step_mutate_at(tidyselect::starts_with("contains_min"),
+                            fn = ~ . * contains_min_w) %>%
+    recipes::step_mutate(n_cols = n_cols * length_w) %>%
+    recipes::step_zv(recipes::all_predictors()) %>%
     embed::step_umap(recipes::all_predictors()) %>%
     recipes::prep() %>%
     recipes::bake(new_data = NULL)
@@ -31,6 +34,10 @@ umap_embedding <- function(palettes) {
     shiny::sidebarLayout(
       shiny::sidebarPanel(
         shiny::actionButton("stopButton", "Stop to return selected palettes"),
+        shiny::sliderInput("contains_min_w", label = "Contains_min",
+                           value = 1, min = 0.01, max = 5),
+        shiny::sliderInput("length_w", label = "Length",
+                           value = 1, min = 0.01, max = 5),
       ),
 
       # Show a plot of the generated distribution
@@ -44,9 +51,11 @@ umap_embedding <- function(palettes) {
   # Define server logic required to draw a histogram
   server <- function(input, output) {
     embedding <- palette2vec(palettes)
-    umap_embedding <- vec2umap(embedding)
 
     shared_embedding <- shiny::reactive({
+      umap_embedding <- vec2umap(embedding,
+                                 contains_min_w = input$contains_min_w,
+                                 length_w = input$length_w)
       crosstalk::SharedData$new(umap_embedding)
     })
 
@@ -77,7 +86,7 @@ umap_embedding <- function(palettes) {
 
     shiny::observe({
       if(input$stopButton > 0){
-        shiny::stopApp(selected_names())
+        shiny::stopApp(palettes[selected_names()])
       }
     })
   }
