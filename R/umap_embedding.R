@@ -14,7 +14,15 @@ vec2umap <- function(x) {
 #' @return selected palettes
 #' @export
 umap_embedding <- function(palettes) {
+  waiting_screen <- shiny::tagList(
+    waiter::spin_flower(),
+    shiny::h4("Calculating palette2vec"),
+    shiny::h4("please wait")
+  )
+
   ui <- shiny::fluidPage(
+    waiter::use_waiter(), # include dependencies
+    waiter::waiter_show_on_load(waiting_screen),
 
     # Application title
     shiny::titlePanel("palette2vec UMAP embedding"),
@@ -59,6 +67,8 @@ umap_embedding <- function(palettes) {
       plotly::ggplotly(p, tooltip = character()) %>%
         plotly::highlight(on = "plotly_selected", off = "plotly_doubleclick")
     })
+
+    waiter::waiter_hide()
 
     output$table <- gt::render_gt({
       if (length(selected_names()) > 0)

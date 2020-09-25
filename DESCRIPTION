@@ -30,4 +30,5 @@ Suggests:
     embed,
     crosstalk,
     ggplot2,
-    glue
+    glue,
+    waiter
