@@ -44,8 +44,8 @@ umap_embedding <- function(palettes) {
 
     selected_names  <- shiny::reactive({
       shared_embedding()$data(withSelection = TRUE) %>%
-        dplyr::filter(selected_) %>%
-        dplyr::pull(name) %>%
+        filter(selected_) %>%
+        pull(name) %>%
         as.character()
     })
 

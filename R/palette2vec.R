@@ -20,16 +20,16 @@ palette2vec <- function(pals, hue_contains_n = 10) {
     n_cols = lengths(pals),
     linear = map_dbl(pals, linear, "RGB"),
     linear_split = map_dbl(pals, linear_split, "RGB"),
-    min_dist = purrr::map_dbl(pals, min_distance, "RGB"),
-    max_dist = purrr::map_dbl(pals, max_distance, "RGB"),
-    iqr_dist = purrr::map_dbl(pals, iqr_distance, "RGB")
+    min_dist = map_dbl(pals, min_distance, "RGB"),
+    max_dist = map_dbl(pals, max_distance, "RGB"),
+    iqr_dist = map_dbl(pals, iqr_distance, "RGB")
     )
 
   hue_colors <- scales::hue_pal()(hue_contains_n)
   hue_contains_min <- colors_contains_min(pals, hue_colors, "RGB")
   hue_contains_all <- colors_contains_all(pals, hue_colors, "RGB")
 
-  dplyr::bind_cols(
+  bind_cols(
     res,
     hue_contains_min,
     hue_contains_all

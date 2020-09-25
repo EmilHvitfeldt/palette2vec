@@ -1,5 +1,5 @@
 colors_contains_min <- function(pals, colors, space) {
-  res <- purrr::map(pals, color_contains_min, color = colors, space = space)
+  res <- map(pals, color_contains_min, color = colors, space = space)
   res <- matrix(unlist(res), ncol = length(colors), byrow = TRUE)
   colnames(res) <- paste0("contains_min", colors)
   tibble::as_tibble(res)
@@ -15,7 +15,7 @@ color_contains_min <- function(pal, color, space) {
 }
 
 colors_contains_all <- function(pals, colors, space) {
-  res <- purrr::map(pals, color_contains_all, color = colors, space = space)
+  res <- map(pals, color_contains_all, color = colors, space = space)
   res <- matrix(unlist(res), ncol = length(colors), byrow = TRUE)
   colnames(res) <- paste0("contains_all", colors)
   tibble::as_tibble(res)

@@ -51,10 +51,10 @@ make_color_strip_svg <- function(colors) {
 #' pals_to_gt(color_hex_palettes[1:5])
 pals_to_gt <- function(pals) {
   tibble(names = names(pals),
-         colors = purrr::map_chr(pals, make_color_strip_svg)) %>%
+         colors = map_chr(pals, make_color_strip_svg)) %>%
     gt::gt() %>%
     gt::text_transform(locations = gt::cells_body("colors"),
                    fn = function(x) {
-                     purrr::map_chr(pals, make_color_strip_svg)
+                     map_chr(pals, make_color_strip_svg)
                    })
 }
