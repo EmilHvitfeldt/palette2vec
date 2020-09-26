@@ -15,21 +15,24 @@ palette2vec <- function(pals, hue_contains_n = 10) {
     stop("`pals` must be a named list")
   }
 
-  res <- tibble::tibble(
-    name = names(pals),
-    n_cols = lengths(pals),
-    linear = map_dbl(pals, linear, "RGB"),
-    linear_split = map_dbl(pals, linear_split, "RGB"),
-    min_dist = map_dbl(pals, min_distance, "RGB"),
-    max_dist = map_dbl(pals, max_distance, "RGB"),
-    iqr_dist = map_dbl(pals, iqr_distance, "RGB")
-    )
+  name <- names(pals)
+  n_cols <- lengths(pals)
+  linear <- map_dbl(pals, linear, "RGB")
+  linear_split <- map_dbl(pals, linear_split, "RGB")
+
+  pal_dist <- map(pals, pal_distances, list(min, max, mean), "RGB")
+  pal_dist_mat <- matrix(unlist(pal_dist), ncol = 3, byrow = TRUE)
+  colnames(pal_dist_mat) <- c("min_dist", "max_dist", "mean_dist")
 
   hue_contains_min <- colors_contains_min(pals, main_colors, "hsl")
   hue_contains_all <- colors_contains_all(pals, main_colors, "hsl")
 
-  bind_cols(
-    res,
+  tibble(
+    name,
+    n_cols,
+    linear,
+    linear_split,
+    as.data.frame(pal_dist_mat),
     hue_contains_min,
     hue_contains_all
   )

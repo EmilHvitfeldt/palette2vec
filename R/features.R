@@ -30,14 +30,23 @@ color_contains_all <- function(pal, color, space) {
   apply(res, 2, mean)
 }
 
-linear <- function(pal, space) {
-  colors <- convert_colour(t(col2rgb(pal)), "rgb", space) %>%
-    as.data.frame() %>%
-    mutate(x = row_number())
+fast_r_squared <- function(x) {
+  y <- seq_len(nrow(x))
 
-  out <- suppressWarnings({lm(x ~ ., colors) %>%
-    summary() %>%
-    .$adj.r.squared})
+  fit <- .lm.fit(x, y)
+
+  r <- fit$residuals
+  f <- y - r
+  mss <- sum(f ^ 2)
+  rss <- sum(r ^ 2)
+  r.squared <- mss/(mss + rss)
+  r.squared
+}
+
+linear <- function(pal, space) {
+  colors <- convert_colour(t(col2rgb(pal)), "rgb", space)
+
+  out <- fast_r_squared(colors)
 
   if(is.nan(out))
     return(0)
@@ -46,22 +55,18 @@ linear <- function(pal, space) {
 }
 
 linear_split <- function(pal, space) {
-  colors <- convert_colour(t(col2rgb(pal)), "rgb", space) %>%
-    as.data.frame()
+  if (length(pal) < 4) {
+    return(0)
+  }
 
-  colors1 <- colors[seq_len(ceiling(nrow(colors) / 2)), ] %>%
-    mutate(x = row_number())
-  colors2 <- colors[seq_len(ceiling(nrow(colors) / 2)) + floor(nrow(colors) / 2), ] %>%
-    mutate(x = row_number())
+  colors <- convert_colour(t(col2rgb(pal)), "rgb", space)
+
+  colors1 <- colors[seq_len(ceiling(nrow(colors) / 2)), ]
+  colors2 <- colors[seq_len(ceiling(nrow(colors) / 2)) + floor(nrow(colors) / 2), ]
 
   out <- min(
-    suppressWarnings({
-      lm(x ~ ., colors1) %>%
-      summary() %>%
-      .$adj.r.squared}),
-    suppressWarnings({lm(x ~ ., colors2) %>%
-      summary() %>%
-      .$adj.r.squared})
+    fast_r_squared(colors1),
+    fast_r_squared(colors2)
   )
 
   if(is.nan(out))
@@ -70,26 +75,13 @@ linear_split <- function(pal, space) {
   out
 }
 
-min_distance <- function(pal, space) {
+pal_distances <- function(pal, funs, space) {
   spectrum1 <- convert_colour(t(col2rgb(pal)), "rgb", space)
   spectrum2 <- spectrum1
 
   mat <- compare_colour(spectrum1, spectrum2, space, method = "cie2000")
-  min(mat[upper.tri(mat)])
-}
 
-max_distance <- function(pal, space) {
-  spectrum1 <- convert_colour(t(col2rgb(pal)), "rgb", space)
-  spectrum2 <- spectrum1
+  upper_tri <- mat[upper.tri(mat)]
 
-  mat <- compare_colour(spectrum1, spectrum2, space, method = "cie2000")
-  max(mat[upper.tri(mat)])
-}
-
-iqr_distance <- function(pal, space) {
-  spectrum1 <- convert_colour(t(col2rgb(pal)), "rgb", space)
-  spectrum2 <- spectrum1
-
-  mat <- compare_colour(spectrum1, spectrum2, space, method = "cie2000")
-  IQR(mat[upper.tri(mat)])
+  map_dbl(funs, ~.x(upper_tri))
 }
