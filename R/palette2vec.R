@@ -17,10 +17,10 @@ palette2vec <- function(pals, hue_contains_n = 10) {
 
   name <- names(pals)
   n_cols <- lengths(pals)
-  linear <- map_dbl(pals, linear, "RGB")
-  linear_split <- map_dbl(pals, linear_split, "RGB")
+  linear <- map_dbl(pals, linear, "lab")
+  linear_split <- map_dbl(pals, linear_split, "lab")
 
-  pal_dist <- map(pals, pal_distances, list(min, max, mean), "RGB")
+  pal_dist <- map(pals, pal_distances, list(min, max, mean), "lab")
   pal_dist_mat <- matrix(unlist(pal_dist), ncol = 3, byrow = TRUE)
   colnames(pal_dist_mat) <- c("min_dist", "max_dist", "mean_dist")
 
@@ -48,7 +48,6 @@ palette2vec <- function(pals, hue_contains_n = 10) {
     hue_contains_all
   )
 }
-
 
 main_colors <- cbind(
   h = c(0, 30, 60, 120, 180, 240, 270, 300),
