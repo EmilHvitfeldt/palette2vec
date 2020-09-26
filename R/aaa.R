@@ -1,7 +1,7 @@
 #' @importFrom grDevices col2rgb
 #' @importFrom farver convert_colour compare_colour
 #' @importFrom purrr map map_dbl map_chr
-#' @importFrom dplyr mutate row_number bind_cols filter pull
+#' @importFrom dplyr mutate row_number bind_cols filter pull select
 #' @importFrom stats .lm.fit IQR
 NULL
 
