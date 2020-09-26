@@ -36,7 +36,7 @@ nn_palettes <- function(palettes) {
     waiter::waiter_show_on_load(waiting_screen),
 
     # Application title
-    shiny::titlePanel("palette2vec UMAP embedding"),
+    shiny::titlePanel("palette2vec Nearest Neighbor"),
 
     # Sidebar with a slider input for number of bins
     shiny::sidebarLayout(
