@@ -85,3 +85,15 @@ pal_distances <- function(pal, funs, space) {
 
   map_dbl(funs, ~.x(upper_tri))
 }
+
+pal_saturations <- function(pal, funs) {
+  colors <- convert_colour(t(col2rgb(pal)), "rgb", "hsl")
+  saturatations <- colors[, "s"]
+  map_dbl(funs, ~.x(saturatations))
+}
+
+pal_lightness <- function(pal, funs) {
+  colors <- convert_colour(t(col2rgb(pal)), "rgb", "hsl")
+  lightness <- colors[, "l"]
+  map_dbl(funs, ~.x(lightness))
+}

@@ -27,12 +27,23 @@ palette2vec <- function(pals, hue_contains_n = 10) {
   hue_contains_min <- colors_contains_min(pals, main_colors, "hsl")
   hue_contains_all <- colors_contains_all(pals, main_colors, "hsl")
 
+  pal_sat <- map(pals, pal_saturations, list(min, max, mean))
+  pal_sat_mat <- matrix(unlist(pal_sat), ncol = 3, byrow = TRUE)
+  colnames(pal_sat_mat) <- c("min_saturation", "max_saturation", "mean_saturation")
+
+  pal_light <- map(pals, pal_lightness, list(min, max, mean))
+  pal_light_mat <- matrix(unlist(pal_light), ncol = 3, byrow = TRUE)
+  colnames(pal_light_mat) <- c("min_lightness", "max_lightness", "mean_lightness")
+
+
   tibble(
     name,
     n_cols,
     linear,
     linear_split,
     as.data.frame(pal_dist_mat),
+    as.data.frame(pal_sat_mat),
+    as.data.frame(pal_light_mat),
     hue_contains_min,
     hue_contains_all
   )
