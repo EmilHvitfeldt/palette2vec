@@ -73,8 +73,11 @@ umap_embedding <- function(palettes) {
         ggplot2::geom_point() +
         ggplot2::theme_void()
 
+      waiter::waiter_hide()
+
       plotly::ggplotly(p, tooltip = character()) %>%
         plotly::highlight(on = "plotly_selected", off = "plotly_doubleclick")
+
     })
 
     output$table <- gt::render_gt({
@@ -87,7 +90,6 @@ umap_embedding <- function(palettes) {
         shiny::stopApp(palettes[selected_names()])
       }
     })
-    waiter::waiter_hide()
   }
 
   # Run the application
