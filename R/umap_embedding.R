@@ -122,7 +122,7 @@ umap_embedding <- function(palettes) {
     })
 
     shiny::observe({
-      if(input$stopButton > 0){
+      if (input$stopButton > 0){
         shiny::stopApp(palettes[selected_names()])
       }
     })

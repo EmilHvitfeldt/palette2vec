@@ -48,7 +48,8 @@ nn_palettes <- function(palettes) {
     shiny::sidebarLayout(
       shiny::sidebarPanel(
         shiny::actionButton("stopButton", "Stop to return selected palettes"),
-        shiny::selectInput("pal_select", "Palette Selection", names(palettes), names(palettes)[1]),
+        shiny::selectInput("pal_select", "Palette Selection",
+                           names(palettes), names(palettes)[1]),
         shiny::sliderInput("length_w", label = "Length",
                            value = 1, min = 0, max = 5),
         shiny::sliderInput("linearity_w", label = "Linearity",
@@ -108,7 +109,7 @@ nn_palettes <- function(palettes) {
     })
 
     shiny::observe({
-      if(input$stopButton > 0){
+      if (input$stopButton > 0){
         shiny::stopApp(nn_palettes())
       }
     })

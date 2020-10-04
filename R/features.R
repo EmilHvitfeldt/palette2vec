@@ -39,8 +39,8 @@ fast_r_squared <- function(x) {
   f <- y - r
   mss <- sum(f ^ 2)
   rss <- sum(r ^ 2)
-  r.squared <- mss/(mss + rss)
-  r.squared
+  r_squared <- mss / (mss + rss)
+  r_squared
 }
 
 linear <- function(pal, space) {
@@ -48,7 +48,7 @@ linear <- function(pal, space) {
 
   out <- fast_r_squared(colors)
 
-  if(is.nan(out))
+  if (is.nan(out))
     return(0)
 
   out
@@ -61,8 +61,11 @@ linear_split <- function(pal, space) {
 
   colors <- convert_colour(t(col2rgb(pal)), "rgb", space)
 
-  colors1 <- colors[seq_len(ceiling(nrow(colors) / 2)), ]
-  colors2 <- colors[seq_len(ceiling(nrow(colors) / 2)) + floor(nrow(colors) / 2), ]
+  first_half <- seq_len(ceiling(nrow(colors) / 2))
+  offset <- floor(nrow(colors) / 2)
+
+  colors1 <- colors[first_half, ]
+  colors2 <- colors[first_half + offset, ]
 
   out <- min(
     fast_r_squared(colors1),

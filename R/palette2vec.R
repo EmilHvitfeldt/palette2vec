@@ -11,7 +11,7 @@
 #'                  heat = heat.colors(16),
 #'                  topo = topo.colors(8)))
 palette2vec <- function(pals, hue_contains_n = 10) {
-  if(length(names(pals)) == 0) {
+  if (length(names(pals)) == 0) {
     stop("`pals` must be a named list")
   }
 
@@ -57,4 +57,3 @@ main_colors <- cbind(
   farver::encode_colour(from = "hsl")
 names(main_colors) <- c("red", "orange", "yellow", "green",
                         "turqouise", "blue", "purple", "pink")
-
