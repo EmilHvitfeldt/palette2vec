@@ -219,3 +219,10 @@ umap_selected
     #> $colorBlindness.Blue2OrangeRed14Steps
     #>  [1] "#075AFF" "#3276FF" "#5990FF" "#8CB2FF" "#BFD4FF" "#E5EEFF" "#F7F9FF"
     #>  [8] "#FFFFCC" "#FFFF99" "#FFFF00" "#FFCC00" "#FF9900" "#FF6600" "#FF0000"
+
+## Code of Conduct
+
+Please note that the palette2vec project is released with a [Contributor
+Code of
+Conduct](https://contributor-covenant.org/version/2/0/CODE_OF_CONDUCT.html).
+By contributing to this project, you agree to abide by its terms.
