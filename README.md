@@ -5,6 +5,8 @@
 
 <!-- badges: start -->
 
+[![R build
+status](https://github.com/EmilHvitfeldt/palette2vec/workflows/R-CMD-check/badge.svg)](https://github.com/EmilHvitfeldt/palette2vec/actions)
 <!-- badges: end -->
 
 The goal of palette2vec is to help you explore color palettes more
