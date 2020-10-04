@@ -1,7 +1,14 @@
-vec2umap <- function(x, contains_w, length_w, linearity_w, dist_w, sat_w,
-                     light_w) {
+vec2umap <- function(x,
+                     contains_w = 1,
+                     length_w = 1,
+                     linearity_w = 1,
+                     dist_w = 1,
+                     sat_w = 1,
+                     light_w = 1) {
+
   check_package("recipes")
   check_package("tidyselect")
+
     recipes::recipe(name ~ ., data = x) %>%
     recipes::step_normalize(recipes::all_predictors()) %>%
     recipes::step_mutate_at(tidyselect::starts_with("contains"),
