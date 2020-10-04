@@ -20,7 +20,7 @@ Imports:
     scales,
     farver,
     magrittr,
-    tidyselect
+    rlang
 Depends: 
     R (>= 2.10)
 Suggests: 
@@ -34,4 +34,5 @@ Suggests:
     glue,
     waiter,
     paletteer,
-    RANN
+    RANN,
+    tidyselect

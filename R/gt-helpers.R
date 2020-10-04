@@ -2,6 +2,7 @@
 make_rects <- function(colors,
                        full_width = 400,
                        height = 30) {
+  check_package("glue")
 
   col_count <- length(colors)
   width_each <- full_width / col_count
@@ -21,6 +22,7 @@ make_rects <- function(colors,
 }
 
 make_color_strip_svg <- function(colors) {
+  check_package("glue")
 
   rects <- make_rects(colors)
 
@@ -50,6 +52,7 @@ make_color_strip_svg <- function(colors) {
 #' @examples
 #' pals_to_gt(color_hex_palettes[1:5])
 pals_to_gt <- function(pals) {
+  check_package("gt")
   tibble(names = names(pals),
          colors = map_chr(pals, make_color_strip_svg)) %>%
     gt::gt() %>%

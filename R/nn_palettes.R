@@ -1,5 +1,7 @@
 vec2norm <- function(x, contains_w, length_w, linearity_w, dist_w, sat_w,
                      light_w) {
+  check_package("recipes")
+  check_package("tidyselect")
   recipes::recipe(name ~ ., data = x) %>%
     recipes::step_normalize(recipes::all_predictors()) %>%
     recipes::step_mutate_at(tidyselect::starts_with("contains"),
@@ -25,6 +27,10 @@ vec2norm <- function(x, contains_w, length_w, linearity_w, dist_w, sat_w,
 #' @return selected palettes
 #' @export
 nn_palettes <- function(palettes) {
+  check_package("shiny")
+  check_package("waiter")
+  check_package("gt")
+
   waiting_screen <- shiny::tagList(
     waiter::spin_flower(),
     shiny::h4("Calculating palette2vec"),

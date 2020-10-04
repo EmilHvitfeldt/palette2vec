@@ -8,3 +8,17 @@ NULL
 utils::globalVariables(
   c(".", "name", "umap_1", "umap_2", "selected_", "n_cols")
 )
+
+check_package <- function(package) {
+  if (!requireNamespace(package, quietly = TRUE)) {
+    rlang::abort(
+      paste0(
+        "Package '",
+        package ,
+        "' needed. Please install it by running `install.packages('",
+        package,
+        "')`."
+      )
+    )
+  }
+}
