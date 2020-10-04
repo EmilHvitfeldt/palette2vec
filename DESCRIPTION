@@ -1,5 +1,5 @@
 Package: palette2vec
-Title: Techinque to Embed Color Palettes to Multidimensial Space
+Title: Technique to Embed Color Palettes to Multidimensional Space
 Version: 0.0.0.9000
 Authors@R: 
     person(given = "Emil",
@@ -7,7 +7,7 @@ Authors@R:
            role = c("aut", "cre"),
            email = "emilhhvitfeldt@gmail.com",
            comment = c(ORCID = "0000-0002-0679-1945"))
-Description: Embeds color palettes to multidimensial space and visualize space
+Description: Embeds color palettes to multidimensional space and visualize space
     interactively.
 License: MIT + file LICENSE
 Depends: 
